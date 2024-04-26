@@ -31,7 +31,6 @@ This means that any HTTP request that matches a route under /admin will be passe
 
 app.use("/shop", shopRouter);
 
-
 app.get("/", (req, res)=>{
     res.render("index", {
         assets

@@ -9,7 +9,7 @@
 <body>
     <%- include("../partials/navbar", assets) %>
     <section>
-        <div class="container">
+        <div id="cart-container" class="container">
             <% items.forEach((item)=>{ %>
                 <div class="cart-item-container">
                     <div>
@@ -20,11 +20,13 @@
                         <div>
                             <h1><%- item.id.name  %></h1>
                             <p><%- item.id.description  %></p>
-                            <p>Quantity :
-                                <a> <button>-</button></a>
-                                <%- item.qty %>
-                                <a> <button>+</button></a>
-                            </p>
+                            <div class="cart-button-area">
+                                <p>Quantity :</p>
+                                <a href="/shop/cart/decrement/<%-item.id._id%>"> <button class="decrement"> - </button></a>
+                                <div class="quantity"><%- item.qty %></div>
+                                <a href="/shop/cart/increment/<%-item.id._id%>"><button class="increment"> + </button></a>
+                                <div style="display: none;"><%- item.id._id%></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -35,5 +37,7 @@
             </div>
         </div>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/script.js"></script>
 </body>
 </html>
