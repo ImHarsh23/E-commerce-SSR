@@ -1,0 +1,22 @@
+<div class="card-container container">
+    <% for(let key in result) { %>
+        <h1><%-key %></h1>
+        <div class="category-container">
+            <% result[key].forEach(function(product){ %>
+                <div class="card">
+                    <div class="product-image-container">
+                        <img src=<%= product.imageurl %> alt="product">
+                    </div>
+                    <h3><%= product.name %></h3>
+                    <h5><%= product.seller %></h5>
+                    <h3><%= product.description %></h3>
+                    <h3><%= product.price %></h3>
+                    <div class="card-last-child">
+                        <a href="/shop/cart/add/<%- product._id %>"><button> Add to cart </button></a>
+                        <a href="/shop/details/<%- product._id %>"><button> Details </button></a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } %>
+</div>

@@ -1,0 +1,29 @@
+<div class="container product-details"> 
+    <div>
+        <div>
+            <img src="<%- product.imageurl %>" alt="">
+        </div>
+        <div class="cart-price"> ₹<%- product.price %> </div>
+        <div>
+            <a href="/shop/cart/add/<%- product._id %>">
+                <button>Add to cart</button>
+            </a>
+            <a href="/shop/cart/add/<%- product._id %>">
+                <button>Buy now</button>
+            </a>
+        </div>
+    </div>
+    <div style="line-height: 40px;">
+        <h1 class="cart-heading"><%- product.name %></h1>
+        <p>Selling by: <%- product.seller %></p>
+        <p>
+            <p> <strong>Highlights</strong> </p>
+            <%- product.description %>
+        </p>
+    </div>
+<div>
+<ul class="reviews-container">
+    <% product.reviews.forEach((review)=>{ %>
+        <li> <%- review %> </li>
+    <% }) %>
+</ul>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <%- include("../partials/navbar", assets) %>
+    <section>
+        <div class="container">
+            <% items.forEach((item)=>{ %>
+                <div class="cart-item-container">
+                    <div>
+                        <img src="<%- item.id.imageurl %>" alt="">
+                    </div>
+
+                    <div>
+                        <div>
+                            <h1><%- item.id.name  %></h1>
+                            <p><%- item.id.description  %></p>
+                            <p>Quantity :
+                                <a> <button>-</button></a>
+                                <%- item.qty %>
+                                <a> <button>+</button></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+
+            <div class="center subtotal">
+                <h1>Subtotal: ₹<%- totalPrice %></h1>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include("../style") %>
+</head>
+<body>
+    <%- include("../partials/navbar", assets) %>
+    <div class="center">
+        <h1> Welcome Admin </h1>
+
+        <div class="center">
+            <a href="/admin/products/all">
+                <button style= <%= result?"background-color:#D4BAEF":"" %>> Get all products </button> 
+            </a> 
+
+            <a href="/admin/products/add">
+                <button style= <%= Addform?"background-color:#D4BAEF":"" %>> Add new product </button> 
+            </a> 
+        </div>
+        
+        <% if(result != undefined) { %>
+            <section>
+                <%- include("./partials/products", result) %>
+            </section>
+        <% } %>
+
+        <% if(Addform != undefined) { %>
+            <section>
+                <%- include("./partials/Addform") %>
+            </section>
+        <% } %>
+
+        <% if(product != undefined) { %>
+            <section>
+                <%- include("./partials/Updateform") %>
+            </section>
+        <% } %>
+
+    </div>
+</body>
+</html>

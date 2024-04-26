@@ -1,0 +1,15 @@
+<div class="form-container">
+    <h1>Update Products</h1>
+    <div class="flex-center">
+        <img src="<%- product.imageurl%>" alt="">
+    </div>
+    <form action="/admin/products/update/<%- product._id%>" method="post">
+        <input type="text" name="name" placeholder="Enter product name" value="<%- product.name %>" required>
+        <input type="number" name="price" placeholder="Enter price" value="<%-product.price %>" required>
+        <input type="text" name="description" placeholder="Enter description" value="<%-product.description %>" required>
+        <input type="text" name="seller" placeholder="Enter seller" value="<%- product.seller %>" required>
+        <input type="url" name="imageurl" placeholder="Enter imageLink" value="<%- product.imageurl %>" required>
+        <input type="text" name="category" placeholder="Enter category" value="<%- product.category %>" required>
+        <button type="submit"> Submit </button>
+    </form>
+</div>
