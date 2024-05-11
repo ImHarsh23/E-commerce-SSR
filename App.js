@@ -4,8 +4,6 @@ const mongoose = require("mongoose");
 const app = express();
 const Port = 4444;
 
-const assets = require("./utils/mockData");
-
 // Set EJS as templating engine 
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -25,17 +23,17 @@ app.use(async(req, res, next)=>{
     next();
 });
 
+const homeRouter = require("./routes/home");
+
+app.use("/", homeRouter);
+
 app.use("/admin", adminRouter);
 /*you are telling your Express application to use the adminRouter middleware for any routes that start with /admin. 
 This means that any HTTP request that matches a route under /admin will be passed to the adminRouter for handling.*/
 
 app.use("/shop", shopRouter);
 
-app.get("/", (req, res)=>{
-    res.render("index", {
-        assets
-    });
-})
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/Ecommerse')
 .then(()=>{

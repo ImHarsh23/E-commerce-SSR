@@ -71,7 +71,7 @@ module.exports.showCart = async(req, res, next)=>{
 
 module.exports.getCartIncrement = async(req, res, next)=>{
     const {id} = req.params;
-    console.log(id);
+    // console.log(id);
     let items = await users.findOne({_id:"662aec3e260d77c5c1117b7c"}).populate("cart.id");
 
     items.cart.forEach((item)=>{
@@ -101,4 +101,32 @@ module.exports.getCartDecrement = async(req, res, next)=>{
 
     items.save();
     res.send(items.cart);
+}
+
+module.exports.getCartBuy = async(req, res, next)=>{
+    let cart = await users.findOne({_id:"662aec3e260d77c5c1117b7c"}).populate("cart.id");
+    cart = cart.cart;
+    let order = req.user.order;
+    let obj ={
+        products: [],
+        totalPrice:0
+    };
+
+    let total_price = 0;
+
+    cart.forEach((product)=>{
+        obj.products.push(product);
+        total_price += product.qty * product.id.price;
+    })
+
+    obj.totalPrice = total_price;
+
+    console.log(obj);
+
+    order.push(obj);
+    req.user.cart = [];
+    req.user.save();
+    res.send({
+        message:"Order placed successfully"
+    })
 }

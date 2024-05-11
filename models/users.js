@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const products = require("./products");
 const {Schema} = mongoose;
 
 const userSchema  = new Schema({
@@ -16,6 +17,15 @@ const userSchema  = new Schema({
     password :{
         type:String
     },
+
+    order: [{
+        products:[],
+        totalPrice: Number,
+        data:{
+            type:Date,
+            default:Date.now
+        }
+    }],
 
     cart:[{
         id:{

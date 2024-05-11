@@ -85,25 +85,39 @@ button:hover{
 }
 
 .card{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     background-color: cadetblue;
     width: 260px;
     height: 300px;
     padding: 1em;
-    border-radius: 20px;
+    border-radius: 20px; */
+
+    position: relative;
+    display: block;  
+    overflow: hidden;
+    text-decoration: none;
+    padding: 1em;
+    width: 260px;
+}
+
+.card:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .product-image-container{
     display: flex;
     justify-content: center;
-    height: 30%;
+    height: 150px;
+}
+
+.product-img{
+    object-fit: contain;
 }
 
 .card-last-child{
     display: flex;
     justify-content: space-between;
-    margin-top: auto;
 }
 
 .card-container{
@@ -172,6 +186,7 @@ button:hover{
 .cart-item-container{
     display: flex;
     gap: 1rem;
+    justify-content: space-around;
     margin-bottom: var(--content-margin);
 }
 
@@ -179,6 +194,11 @@ button:hover{
     flex-basis: 100%;
     display: flex;
     align-items: center;
+}
+
+.cart-item-container > :first-child{
+    display: flex;
+    justify-content: center;
 }
 
 .cart-item-container img{
@@ -193,6 +213,13 @@ button:hover{
 .cart-button-area{
     display: flex;
     gap: 0.4em;
+}
+
+.buybtn{
+    margin-top: var(--content-margin);
+    color: aliceblue;
+    background: #000;
+    font-weight: 700;
 }
 
 /* cart Css end */
