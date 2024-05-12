@@ -72,3 +72,15 @@ module.exports.getProductDelete = async(req, res, next)=>{
     await products.deleteOne({_id: id});
     res.redirect("/admin/products/all");
 }
+
+module.exports.getAdminLogin = async(req, res, next)=>{
+    res.render("admin/admin-login-form", {
+        assets
+    });
+}
+
+module.exports.getAdminSignup = async(req, res, next)=>{
+    res.render("admin/admin-signup-form", {
+        assets
+    });
+}

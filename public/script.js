@@ -1,6 +1,7 @@
 let cart = document.querySelector("#cart-container");
 let quantity = document.querySelectorAll(".quantity");
-let buyBtn = document.querySelector("buybtn");
+let buyBtn = document.querySelector(".buybtn");
+let cartPagePopup = document.querySelector("#popup");
 
 function updateCart(data){
     let fragment = document.createDocumentFragment();
@@ -57,14 +58,24 @@ cart.addEventListener("click", async (e)=>{
     if(item.classList.contains('decrement')){
         let id = e.target.parentElement.parentElement.lastElementChild.textContent;
         axios.get(`/shop/cart/decrement/${id}`).then(({data})=>{
-            data.forEach(element => {
-                updateCart(data);
-            });
+            console.log(data);
+            updateCart(data);
         })
     }
 })
 
-buyBtn.addEventListener("click", (event)=>{
+buyBtn.addEventListener("click", async(event)=>{
     event.preventDefault();
-    cart.innerHTML = " ";
+    await axios.get("/shop/cart/buy").then(({data})=>{
+        cartPagePopup.innerHTML = data.message;
+    });
+
+    cart.innerHTML = `<div class="center subtotal">
+                        <h1>Subtotal: ₹0</h1>
+                    </div>`;
+    cartPagePopup.classList.remove("hidden");
+    setTimeout(()=>{
+        cartPagePopup.classList.add("hidden");
+    }, 2000);
 })
+

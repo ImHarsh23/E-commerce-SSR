@@ -1,0 +1,1 @@
+module.exports = require("passport").authenticate('local', { failureRedirect: '/shop/user/login' });

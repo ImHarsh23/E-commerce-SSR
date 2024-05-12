@@ -1,39 +1,33 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const app = express();
 const Port = 4444;
 
-// Set EJS as templating engine 
-
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended:true}));
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs'); 
 
-const users = require("./models/users");
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/Ecommerse'})
+}));
 
-const adminRouter = require("./routes/admin"); 
-const shopRouter = require("./routes/shop"); 
+const passport = require("./authentication/passport");
 
-app.use(async(req, res, next)=>{
-    let user = await users.findOne({_id:"662aec3e260d77c5c1117b7c"});
-    req.user = user;
-    // user.cart = [];
-    // req.user.save();
-    next();
-});
-
-const homeRouter = require("./routes/home");
-
-app.use("/", homeRouter);
-
-app.use("/admin", adminRouter);
-/*you are telling your Express application to use the adminRouter middleware for any routes that start with /admin. 
-This means that any HTTP request that matches a route under /admin will be passed to the adminRouter for handling.*/
-
-app.use("/shop", shopRouter);
+app.use(passport.initialize());
+app.use(passport.session());
 
 
+app.use("/", require("./routes/home"));
+
+app.use("/admin", require("./routes/admin"));
+
+app.use("/shop", require("./routes/shop"));
 
 mongoose.connect('mongodb://127.0.0.1:27017/Ecommerse')
 .then(()=>{

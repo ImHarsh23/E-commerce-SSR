@@ -61,8 +61,35 @@ button:hover{
     font-size: var(--nav-font-size);
     font-weight: 500;
     display: flex;
+    align-items: center;
     gap: 2rem;
 }
+
+.navbar-login-overlay{
+    position: absolute;
+    bottom: -100%;
+    display: none;
+    gap: 1rem;
+    background-color: #007bff;
+    padding: 1rem;
+    border: 2px double black;
+    border-radius: 5px;
+    margin-left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.navbar-login-overlay > a{
+    color: whitesmoke;
+    background-color: rgb(85, 85, 85);
+    padding: 0.3em 0.6em;
+    border-radius: 100vh;
+    border: 1px dotted black;
+}
+
+.flex{
+    display: flex;
+}
+
 
 /* Navbar END */
 
@@ -85,14 +112,6 @@ button:hover{
 }
 
 .card{
-    /* display: flex;
-    flex-direction: column;
-    background-color: cadetblue;
-    width: 260px;
-    height: 300px;
-    padding: 1em;
-    border-radius: 20px; */
-
     position: relative;
     display: block;  
     overflow: hidden;
@@ -155,6 +174,45 @@ button:hover{
 }
 
 /* cart Css start */
+
+#popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 18px;
+    z-index: 999;
+    animation: slideDown 0.5s ease-in-out forwards, hidePopup 2s ease-in-out forwards;
+  }
+  
+  @keyframes slideDown {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0.1em);
+    }
+  }
+  
+  @keyframes hidePopup {
+    0% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  .hidden {
+    display: none;
+  }
 
 .product-details{
     display: flex;
@@ -223,6 +281,85 @@ button:hover{
 }
 
 /* cart Css end */
+
+
+
+/*LOGIN Start*/
+.Login-page-heading{
+    margin-top: var(--content-margin);
+    text-align: center;
+}
+
+.login-choice{
+    margin-top: var(--section-margin);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.selected{
+    background-color: #007bff;
+    color: white;
+    padding: 0.3em 0.8em;
+    border-radius: 100vh;
+}
+
+.login-container {
+    width: 320px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    animation: slide-in 0.5s ease-out;
+    
+    
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #0056b3;
+    }
+}
+  
+  .input-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+  }
+  
+  .input-group input:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+/*LOGIN End*/
 
 @media(max-width:512px){
     .cart-item-container{

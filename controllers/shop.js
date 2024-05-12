@@ -1,6 +1,5 @@
 const assets = require("../utils/mockData");
 const products =  require("../models/products");
-const users = require("../models/users"); 
 
 module.exports.showProduct = async(req, res, next)=>{
     const {getProductCategoryWise} = require("../utils/mockData");
@@ -26,6 +25,7 @@ module.exports.getDetails = async (req, res, next)=>{
 
 module.exports.AddToCartById = async(req, res, next)=>{
     const {id} = req.params;
+    console.log(req.user);
     let userCart = req.user.cart;
     let index = -1;
 
@@ -49,11 +49,11 @@ module.exports.AddToCartById = async(req, res, next)=>{
 
     //to make sure that db me change ho jaae so we need to save it.
     req.user.save();
-    res.redirect("/shop");
+    res.redirect("/shop/cart");
 }
 
 module.exports.showCart = async(req, res, next)=>{
-    let items = await users.findOne({_id:"662aec3e260d77c5c1117b7c"}).populate("cart.id");
+    let items = req.user;
     items = items.cart;
     let totalPrice = 0;
     items.forEach((item)=>{
@@ -72,7 +72,7 @@ module.exports.showCart = async(req, res, next)=>{
 module.exports.getCartIncrement = async(req, res, next)=>{
     const {id} = req.params;
     // console.log(id);
-    let items = await users.findOne({_id:"662aec3e260d77c5c1117b7c"}).populate("cart.id");
+    let items = req.user;
 
     items.cart.forEach((item)=>{
         if(item.id._id == id){
@@ -88,7 +88,7 @@ module.exports.getCartIncrement = async(req, res, next)=>{
 
 module.exports.getCartDecrement = async(req, res, next)=>{
     const {id} = req.params;
-    let items = await users.findOne({_id:"662aec3e260d77c5c1117b7c"}).populate("cart.id");
+    let items = req.user;
 
     items.cart.forEach((item, index)=>{
         if(item.id._id == id){
@@ -104,8 +104,14 @@ module.exports.getCartDecrement = async(req, res, next)=>{
 }
 
 module.exports.getCartBuy = async(req, res, next)=>{
-    let cart = await users.findOne({_id:"662aec3e260d77c5c1117b7c"}).populate("cart.id");
-    cart = cart.cart;
+    let user = req.user;
+    cart = user.cart;
+    if(cart.length == 0){
+        console.log("Hello");
+        return res.send({
+        message:"Add item first"
+        })
+    }
     let order = req.user.order;
     let obj ={
         products: [],
@@ -120,13 +126,49 @@ module.exports.getCartBuy = async(req, res, next)=>{
     })
 
     obj.totalPrice = total_price;
-
-    console.log(obj);
-
-    order.push(obj);
+    
+    order.unshift(obj);
     req.user.cart = [];
     req.user.save();
+    // console.log(req.user);
     res.send({
         message:"Order placed successfully"
     })
+}
+
+module.exports.loginPage = async(req, res) => {
+    res.render("login", {
+        assets,
+    });
+}
+
+module.exports.postUserLogin = async(req, res)=>{
+    res.redirect("/shop/user/login");
+}
+
+
+module.exports.signupPage = async(req, res) => {
+    res.render("signup", {
+        assets
+    });
+}
+
+module.exports.postUsersignup = async(req, res, next) => {
+    const {name, email, password} = req.body;
+    let user = await Users.findOne({email});
+    if(user){
+        res.render("signup", {
+            assets,
+            message:"Email Already exist"
+        });
+    }
+
+    await Users.create(
+        {
+            name, 
+            email,
+            password
+        }
+    );
+    res.redirect("/shop/user/login");
 }

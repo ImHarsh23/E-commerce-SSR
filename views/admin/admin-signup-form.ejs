@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <%- include("../partials/navbar") %>
+    <div class="Login-page-heading">
+        <h2>Signup</h2>
+
+        <div class="login-choice">
+            <a href="/shop/user/signup">
+                <h3>User</h3>
+            </a>
+
+            <a href="/admin/Signup">
+                <h3 class="selected">Admin</h3>
+            </a>
+        </div>
+    </div>
+    <div class="login-container">
+        <form action="/login" method="post">
+            <div class="input-group">
+                <input type="text" id="name" name="name" placeholder="username..." required>
+            </div>
+
+            <div class="input-group">
+                <input type="email" id="email" name="email" placeholder="email..." required>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="password..." required>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="token" name="token" placeholder="Access Token..." required>
+            </div>
+            <button type="submit">Create Account</button>
+        </form>
+    </div>
+</body>
+</html>
