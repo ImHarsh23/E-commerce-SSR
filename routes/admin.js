@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {getProductsAll, postProductsAdd, getAdminHome, getAdminAddForm, getProductUpdate, postProductUpdate, getProductDelete, getAdminLogin, getAdminSignup} = require("../controllers/admin"); 
+const {getProductsAll, postProductsAdd, getAdminHome, getAdminAddForm, getProductUpdate, postProductUpdate, getProductDelete, getAdminLogin, getAdminSignup, postAdminSignup, postAdminLogin} = require("../controllers/admin"); 
 
 router.get("/", getAdminHome);
 
@@ -21,9 +21,15 @@ router.post("/products/update/:id", postProductUpdate);
 //Delete
 router.get("/products/delete/:id", getProductDelete);
 
-//login for for admin
+//login and signup page for admin
 router.get("/login", getAdminLogin);
 
 router.get("/signup", getAdminSignup);
+
+//login and signup for admin
+
+router.post("/login", require("../middleware/admin-local-strategy"), postAdminLogin);
+
+router.post("/signup", postAdminSignup);
 
 module.exports = router;

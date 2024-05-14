@@ -1,25 +1,43 @@
 const products = require("../models/products");
 const assets = require("../utils/mockData");
+const Admins = require("../models/Admins");
 
 module.exports.getAdminHome = async(req, res, next)=>{
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
     res.render("admin/home", {
         assets,
         result:undefined,
         Addform: undefined,
-        product:undefined
+        product:undefined,
+        loginInfo
     });
 }
 
 module.exports.getAdminAddForm = async(req, res, next)=>{
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
     res.render("admin/home", {
         assets,
         result:undefined,
         Addform:true,
-        product:undefined
+        product:undefined,
+        loginInfo
     });
 }
 
 module.exports.getProductsAll = async (req, res, next)=>{
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
     const {getProductCategoryWise} = require("../utils/mockData");
     const data = await getProductCategoryWise(products);
     
@@ -27,7 +45,8 @@ module.exports.getProductsAll = async (req, res, next)=>{
         assets,
         result:data,
         Addform:undefined,
-        product:undefined
+        product:undefined,
+        loginInfo
     });
 }
 
@@ -38,13 +57,18 @@ module.exports.postProductsAdd = async(req, res, next)=>{
 }
 
 module.exports.getProductUpdate = async(req, res, next)=>{
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false
+    }
+
     const {id} = req.params; 
     const product = await products.findOne({_id:id});
     res.render("admin/home",{
         assets,
         result:undefined,
         Addform: undefined,
-        product
+        product,
+        loginInfo
     });
 }
 
@@ -74,13 +98,56 @@ module.exports.getProductDelete = async(req, res, next)=>{
 }
 
 module.exports.getAdminLogin = async(req, res, next)=>{
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
     res.render("admin/admin-login-form", {
-        assets
+        assets, 
+        loginInfo
     });
 }
 
 module.exports.getAdminSignup = async(req, res, next)=>{
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
     res.render("admin/admin-signup-form", {
-        assets
+        assets,
+        loginInfo
     });
+}
+
+module.exports.postAdminSignup = async(req, res, next)=>{
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
+    const {name, email, password} = req.body;
+    let admin = await Admins.findOne({email});
+    if(admin){
+        res.render("admin/admin-signup-form", {
+            assets,
+            message:"Email Already exist",
+            loginInfo
+        });
+    }
+
+    await Admins.create(
+        {
+            name, 
+            email,
+            password
+        }
+    );
+    res.redirect("/admin/login");
+}
+
+module.exports.postAdminLogin = async(req, res)=>{
+    console.log("hello");
+    res.redirect("/");
 }

@@ -15,7 +15,9 @@
                             <h3><%= product.price %></h3>
                         </div>
                         <div class="card-last-child">
-                            <a href="/shop/cart/add/<%- product._id %>"><button> Add to cart </button></a>
+                            <% if(loginInfo.isLogin && loginInfo.role == "user") { %>
+                                <a href="/shop/cart/add/<%- product._id %>"><button> Add to cart </button></a>
+                            <% }  %>
                             <a href="/shop/details/<%- product._id %>"><button> Details </button></a>
                         </div>
                     </div>

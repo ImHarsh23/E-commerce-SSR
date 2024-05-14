@@ -1,17 +1,29 @@
 const assets = require("../utils/mockData");
 const products =  require("../models/products");
+const Users = require("../models/Users");
 
 module.exports.showProduct = async(req, res, next)=>{
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
     const {getProductCategoryWise} = require("../utils/mockData");
     const data = await getProductCategoryWise(products);
     res.render("user/home",{
         assets,
         result:data,
-        productDetails:false
+        productDetails:false,
+        loginInfo
     });
 }
 
 module.exports.getDetails = async (req, res, next)=>{
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
     const {id} = req.params;
     const product = await products.findById({_id: id});
 
@@ -19,7 +31,8 @@ module.exports.getDetails = async (req, res, next)=>{
         assets,
         result:undefined,
         productDetails:true,
-        product
+        product,
+        loginInfo 
     });
 }
 
@@ -53,6 +66,11 @@ module.exports.AddToCartById = async(req, res, next)=>{
 }
 
 module.exports.showCart = async(req, res, next)=>{
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
     let items = req.user;
     items = items.cart;
     let totalPrice = 0;
@@ -65,7 +83,8 @@ module.exports.showCart = async(req, res, next)=>{
     res.render("user/cart", {
         assets,
         items, 
-        totalPrice
+        totalPrice,
+        loginInfo
     });
 }
 
@@ -137,29 +156,47 @@ module.exports.getCartBuy = async(req, res, next)=>{
 }
 
 module.exports.loginPage = async(req, res) => {
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
     res.render("login", {
         assets,
+        loginInfo
     });
 }
 
 module.exports.postUserLogin = async(req, res)=>{
-    res.redirect("/shop/user/login");
+    res.redirect("/");
 }
 
 
 module.exports.signupPage = async(req, res) => {
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
     res.render("signup", {
-        assets
+        assets, 
+        loginInfo
     });
 }
 
 module.exports.postUsersignup = async(req, res, next) => {
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
     const {name, email, password} = req.body;
     let user = await Users.findOne({email});
     if(user){
         res.render("signup", {
             assets,
-            message:"Email Already exist"
+            message:"Email Already exist",
+            loginInfo
         });
     }
 
@@ -171,4 +208,11 @@ module.exports.postUsersignup = async(req, res, next) => {
         }
     );
     res.redirect("/shop/user/login");
+}
+
+module.exports.getUserLogout = function(req, res, next) {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
 }

@@ -13,15 +13,14 @@ app.set('view engine', 'ejs');
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/Ecommerse'})
+    saveUninitialized: true,
+    store: MongoStore.create({mongoUrl: 'mongodb://127.0.0.1:27017/Ecommerse'})
 }));
 
 const passport = require("./authentication/passport");
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.use("/", require("./routes/home"));
 

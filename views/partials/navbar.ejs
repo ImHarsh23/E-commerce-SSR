@@ -8,9 +8,18 @@
 
         <ul class="right-nav">
             <a href="/"><li>Home</li></a>
-            <a href="/admin"><li>Admin</li></a>
-            <a href="/shop"><li>Shop</li></a>
-            <a href="/shop/cart"><li>Cart</li></a>
+            <% if(loginInfo.isLogin && loginInfo.role == "admin") { %>
+                <a href="/admin"><li>Admin</li></a>
+            <% }  %>
+
+            <% if(loginInfo.isLogin && loginInfo.role == "user") { %>
+                <a href="/shop"><li>Shop</li></a>
+            <% }  %>
+
+            <% if(loginInfo.isLogin && loginInfo.role == "user") { %>
+                <a href="/shop/cart"><li>Cart</li></a>
+            <% }  %>
+
             <div style="position: relative;">
                 <a class="navbar-user-logo" href="">
                     <div>
@@ -19,13 +28,20 @@
                 </a>
 
                 <div class="navbar-login-overlay">
-                    <a href="/shop/user/login">
-                        Login
-                    </a>
-
-                    <a href="/shop/user/signup">
-                        Signup
-                    </a>
+                    <% if(!loginInfo.isLogin) {%>
+                        <a href="/shop/user/login">
+                            Login
+                        </a>
+    
+                        <a href="/shop/user/signup">
+                            Signup
+                        </a>
+                    <%} else { %>
+                        <a href="/shop/user/logout">
+                            LogOut
+                        </a>
+                    <% } %>
+                    
                 </div>
 
             </div>

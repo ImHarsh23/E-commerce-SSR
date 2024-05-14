@@ -1,1 +1,1 @@
-module.exports = require("passport").authenticate('local', { failureRedirect: '/shop/user/login' });
+module.exports = require("passport").authenticate('user-local', { failureRedirect: '/shop/user/login' });

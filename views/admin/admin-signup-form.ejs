@@ -21,8 +21,9 @@
             </a>
         </div>
     </div>
+
     <div class="login-container">
-        <form action="/login" method="post">
+        <form action="/admin/signup" method="post">
             <div class="input-group">
                 <input type="text" id="name" name="name" placeholder="username..." required>
             </div>
@@ -36,10 +37,13 @@
             </div>
 
             <div class="input-group">
-                <input type="text" id="token" name="token" placeholder="Access Token..." required>
+                <input type="text" id="token" name="token" placeholder="Access Token...">
             </div>
             <button type="submit">Create Account</button>
         </form>
+        <% if (typeof message !== 'undefined') { %>
+            <p><%= message %></p>
+        <% } %>
     </div>
 </body>
 </html>

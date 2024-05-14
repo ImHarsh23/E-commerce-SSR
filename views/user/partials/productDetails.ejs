@@ -5,12 +5,15 @@
         </div>
         <div class="cart-price"> ₹<%- product.price %> </div>
         <div>
-            <a href="/shop/cart/add/<%- product._id %>">
-                <button>Add to cart</button>
-            </a>
-            <a href="/shop/cart/add/<%- product._id %>">
-                <button>Buy now</button>
-            </a>
+            <% if(loginInfo.isLogin && loginInfo.role == "user") { %>
+                <a href="/shop/cart/add/<%- product._id %>">
+                    <button>Add to cart</button>
+                </a>
+                
+                <a href="/shop/cart/add/<%- product._id %>">
+                    <button>Buy now</button>
+                </a>
+            <% }  %>
         </div>
     </div>
     <div style="line-height: 40px;">

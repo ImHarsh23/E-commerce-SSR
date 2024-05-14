@@ -1,0 +1,1 @@
+module.exports = require("passport").authenticate('admin-local', { failureRedirect: '/admin/login' });

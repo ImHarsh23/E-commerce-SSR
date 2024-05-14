@@ -3,7 +3,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {showProduct, getDetails, AddToCartById, showCart, getCartIncrement, getCartDecrement, getCartBuy, loginPage, signupPage, postUsersignup, postUserLogin} = require("../controllers/shop");
+const {showProduct, getDetails, AddToCartById, showCart, getCartIncrement, getCartDecrement, getCartBuy, loginPage, signupPage, postUsersignup, postUserLogin, getUserLogout} = require("../controllers/shop");
 
 router.get("/", showProduct);
 
@@ -22,6 +22,8 @@ router.get("/cart/buy", getCartBuy);
 router.get("/user/login", loginPage);
 
 router.post("/user/login", require("../middleware/local-strategy"), postUserLogin);
+
+router.get('/user/logout', getUserLogout);
 
 router.get("/user/signup", signupPage);
 
