@@ -10,7 +10,6 @@ const userSchema  = new Schema({
 
     email:{
         type: String,
-        required: true,
         unique:true
     },
 
@@ -21,6 +20,18 @@ const userSchema  = new Schema({
 
     password :{
         type:String
+    },
+
+    googleAccessToken:{
+        type: String
+    },
+
+    googleId:{
+        type: String
+    },
+
+    googleImg:{
+        type: String
     },
 
     order: [{

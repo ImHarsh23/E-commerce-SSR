@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {getProductsAll, postProductsAdd, getAdminHome, getAdminAddForm, getProductUpdate, postProductUpdate, getProductDelete, getAdminLogin, getAdminSignup, postAdminSignup, postAdminLogin} = require("../controllers/admin"); 
+const {getProductsAll, postProductsAdd, getAdminHome, getAdminAddForm, getProductUpdate, postProductUpdate, getProductDelete, getAdminLogin, getAdminSignup, postAdminSignup, postAdminLogin, postAuthGoogleCallback} = require("../controllers/admin"); 
 
 router.get("/", getAdminHome);
 

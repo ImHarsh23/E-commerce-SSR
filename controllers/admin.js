@@ -148,6 +148,5 @@ module.exports.postAdminSignup = async(req, res, next)=>{
 }
 
 module.exports.postAdminLogin = async(req, res)=>{
-    console.log("hello");
     res.redirect("/");
 }

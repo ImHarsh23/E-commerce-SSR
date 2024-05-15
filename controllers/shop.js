@@ -216,3 +216,7 @@ module.exports.getUserLogout = function(req, res, next) {
       res.redirect('/');
     });
 }
+
+module.exports.getAuthGoogleCallback = (req, res, next)=>{
+    res.redirect("/");
+}

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
 const app = express();
-const Port = 4444;
+const Port = 3000;
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended:true}));

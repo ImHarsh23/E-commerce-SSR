@@ -10,8 +10,19 @@ const AdminSchema  = new Schema({
 
     email:{
         type: String,
-        required: true,
         unique:true
+    },
+
+    googleAccessToken:{
+        type: String
+    },
+
+    googleId:{
+        type: String
+    },
+
+    googleImg:{
+        type: String
     },
 
     role:{

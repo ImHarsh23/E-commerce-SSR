@@ -7,36 +7,36 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <%- include("../partials/navbar") %>
-    <div class="Login-page-heading">
-        <h2>Login</h2>
+  <%- include("../partials/navbar") %>
+  <div class="Login-page-heading">
+      <h2>Login</h2>
 
-        <div class="login-choice">
-            <a href="/shop/user/login">
-                <h3>User</h3>
-            </a>
+      <div class="login-choice">
+          <a href="/shop/user/login">
+              <h3>User</h3>
+          </a>
 
-            <a href="/admin/login">
-                <h3 class="selected">Admin</h3>
-            </a>
+          <a href="/admin/login">
+              <h3 class="selected">Admin</h3>
+          </a>
+      </div>
+  </div>
+  <div class="login-container">
+      <form action="/admin/login" method="post">
+        <div class="input-group">
+          <input type="text" id="username" name="username" placeholder="Username:" required>
         </div>
-    </div>
-    <div class="login-container">
-        <form action="/admin/login" method="post">
-          <div class="input-group">
-            <input type="text" id="username" name="username" placeholder="Username:" required>
-          </div>
-          <div class="input-group">
-            <input type="password" id="password" name="password" placeholder="Password:" required>
-          </div>
-          <div class="input-group">
-            <input type="password" id="token" name="token" placeholder="Access Token:" >
-          </div>
-          <button type="submit">Login</button>
-        </form>
-        <% if (typeof message !== 'undefined') { %>
-            <p>The variable value is: <%= message %></p>
-        <% } %>
-    </div>
+        <div class="input-group">
+          <input type="password" id="password" name="password" placeholder="Password:" required>
+        </div>
+        <div class="input-group">
+          <input type="password" id="token" name="token" placeholder="Access Token:" >
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <% if (typeof message !== 'undefined') { %>
+          <p>The variable value is: <%= message %></p>
+      <% } %>
+  </div>
 </body>
 </html>
