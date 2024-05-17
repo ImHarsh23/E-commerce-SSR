@@ -35,9 +35,16 @@ const userSchema  = new Schema({
     },
 
     order: [{
-        products:[],
+        products:[{
+            id:{
+                type: Schema.Types.ObjectId,
+                ref:"products",
+                required: true
+            }
+        }],
+
         totalPrice: Number,
-        data:{
+        date:{
             type:Date,
             default:Date.now
         }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <%- include("../partials/navbar")%>
+        <% for(let i = 0; i < order.length; i++) { %>
+            <% 
+                const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                const date = new Date(order[i].date);
+                const day = date.getDate();
+                const month = date.getMonth() + 1; // Month (0-11), +1 to get 1-12
+                const year = date.getFullYear();
+            %>
+            <p class="date">Date: <%= `${day}-${monthNames[month]}-${year}` %></p>
+            
+            <div class="category-container orderHistory">
+                <% for (let j = 0; j < order[i].products.length; j++){ %>
+                    <div class="card">
+                        <div class="product-image-container">
+                            <img class="product-img" src=<%= order[i].products[j].id.imageurl %> alt="product">
+                        </div>
+                        <div class="inner-card">
+                            <div>
+                                <h3><%= order[i].products[j].id.name %></h3>
+                                <h5><%= order[i].products[j].id.seller %></h5>
+                                <h3><%= order[i].products[j].id.description %></h3>
+                                <h3><%= order[i].products[j].id.price %></h3>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+                <div class="orderValue">
+                    <h2>Order Value: </h2>
+                    <p><%= order[i].totalPrice %></p>
+                </div>
+            </div>
+
+        <% } %>
+    </div>
+</body>
+</html>

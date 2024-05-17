@@ -3,7 +3,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {showProduct, getDetails, AddToCartById, showCart, getCartIncrement, getCartDecrement, getCartBuy, loginPage, signupPage, postUsersignup, postUserLogin, getUserLogout, getAuthGoogleCallback} = require("../controllers/shop");
+const {showProduct, getDetails, AddToCartById, showCart, getCartIncrement, getCartDecrement, getCartBuy, loginPage, signupPage, postUsersignup, postUserLogin, getUserLogout, getAuthGoogleCallback, getUserOrders} = require("../controllers/shop");
 
 router.get("/", showProduct);
 
@@ -35,5 +35,9 @@ router.post("/user/signup", postUsersignup);
 router.get("/user/login/google", require("../middleware/user-google-strategy").authenticate);
 
 router.get("/auth/google/callback", require("../middleware/user-google-strategy").authenticateCallback, getAuthGoogleCallback);
+
+//order history
+
+router.get("/user/orders", getUserOrders);
 
 module.exports = router;

@@ -62,7 +62,7 @@ module.exports.AddToCartById = async(req, res, next)=>{
 
     //to make sure that db me change ho jaae so we need to save it.
     req.user.save();
-    res.redirect("/shop/cart");
+    res.redirect("/shop");
 }
 
 module.exports.showCart = async(req, res, next)=>{
@@ -219,4 +219,22 @@ module.exports.getUserLogout = function(req, res, next) {
 
 module.exports.getAuthGoogleCallback = (req, res, next)=>{
     res.redirect("/");
+}
+
+module.exports.getUserOrders = (req, res, next)=>{
+    
+    if(!req.isAuthenticated()){
+        return res.redirect("/");
+    }
+
+    const loginInfo = {
+        isLogin : req?.session?.passport?.user ? true : false,
+        role: req?.user?.role || ""
+    }
+
+    res.render("user/orderHistory", {
+        order: req.user.order,
+        assets,
+        loginInfo
+    });
 }

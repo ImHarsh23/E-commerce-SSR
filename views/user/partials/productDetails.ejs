@@ -4,7 +4,7 @@
             <img src="<%- product.imageurl %>" alt="">
         </div>
         <div class="cart-price"> ₹<%- product.price %> </div>
-        <div>
+        <div class="">
             <% if(loginInfo.isLogin && loginInfo.role == "user") { %>
                 <a href="/shop/cart/add/<%- product._id %>">
                     <button>Add to cart</button>

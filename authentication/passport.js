@@ -49,12 +49,11 @@ passport.use("admin-local", new LocalStrategy(
 
 
 passport.use(new GoogleStrategy({ //for user
-    clientID: "Google client ID",
-    clientSecret: "Google client secret",
+    clientID: "Your client id",
+    clientSecret: "Your client secret id",
     callbackURL: "http://localhost:3000/shop/auth/google/callback"
 },
     async function (accessToken, refreshToken, profile, done) {
-        console.log("Hello");
         try {
             const user = await Users.findOne({ googleId: profile.id });
             if (user) {
@@ -81,7 +80,7 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(async function (id, done) {
     try {
-        let user = await Users.findOne({ _id: id }).populate("cart.id");
+        let user = await Users.findOne({ _id: id }).populate("order.products.id").populate("cart.id");
         if (user) {
             return done(null, user);
         }
